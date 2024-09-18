@@ -14,26 +14,41 @@ const Home = () => {
 			setInputValue('');
 		}
 	}
+
+	const deleteTask = (indexToRemove) => {
+		const newTasks = tasks.filter((_, index) => index !== indexToRemove)
+		setTasks(newTasks)
+	}
+
+
+
 	return ( 
-		<div className="container">
-			<h1>Todos</h1>
-				<input
-					type= "text"
-					onChange={(e) => setInputValue(e.target.value)}
-					value={inputValue}
-					placeholder="What will you do today?"
-					onKeyDown={handlePress}
-			></input>
-			<ul> 
-				{tasks.length === 0 ? (
-					<li>No tasks, add tasks</li>
-				) : (
-					 tasks.map((task, i) => (
-					 
-					 <div key={i}>{task}</div>)
-						
-					 )
-				)}
+		<div className="container text-center">
+			<h1 >todos</h1>
+				<ul className="list-group mt-3"> 
+					<li className="list-group-item">  
+						<input 
+							type= "text"
+							className="input-item"
+							onChange={(e) => setInputValue(e.target.value)}
+							value={inputValue}
+							placeholder="What will you do today?"
+							onKeyDown={handlePress}
+						></input>
+					</li>
+							{tasks.length === 0 ? (
+								<li className="list-group-item" >No tasks, add tasks</li>
+							) : (
+								tasks.map((task, i) => (
+								
+								<li key={i} className="list-group-item">{task}
+								 <span className="delete-icon" onClick={() => deleteTask(i)}>
+									 X
+								 </span>
+								</li>)
+									
+								)
+							)}			
 			</ul>
 		</div>
 	)
